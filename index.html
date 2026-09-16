@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coffee House — Свежий кофе каждый день</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    /* ⬇️ ГЛАВНОЕ: плавная прокрутка для всего сайта */
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px; /* отступ сверху под фиксированную шапку */
+    }
+
+    :root {
+      --coffee-dark: #2b1a13;
+      --coffee: #6f4e37;
+      --coffee-light: #c8a27a;
+      --cream: #f5ede4;
+      --accent: #d4a373;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--coffee-dark);
+      line-height: 1.6;
+    }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(43, 26, 19, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      padding: 15px 0;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: var(--accent);
+      font-size: 1.6rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .logo span { color: #fff; }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(43,26,19,0.7), rgba(43,26,19,0.85)),
+                  url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920') center/cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      padding: 0 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      margin-bottom: 20px;
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero h1 span { color: var(--accent); }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      max-width: 600px;
+      margin-bottom: 35px;
+      opacity: 0.9;
+      animation: fadeInUp 1s ease 0.3s backwards;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 15px 40px;
+      background: var(--accent);
+      color: var(--coffee-dark);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      animation: fadeInUp 1s ease 0.6s backwards;
+    }
+
+    .btn:hover {
+      background: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* SECTIONS */
+    section { padding: 90px 20px; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: var(--coffee-dark);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--coffee);
+      margin-bottom: 60px;
+      font-size: 1.1rem;
+    }
+
+    /* MENU */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .menu-item {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(43,26,19,0.08);
+      transition: transform 0.4s, box-shadow 0.4s;
+      text-align: center;
+      padding-bottom: 25px;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(43,26,19,0.15);
+    }
+
+    .menu-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .menu-item h3 {
+      margin: 20px 0 10px;
+      font-size: 1.3rem;
+      color: var(--coffee-dark);
+    }
+
+    .menu-item p {
+      color: var(--coffee);
+      padding: 0 20px;
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+    }
+
+    .price {
+      color: var(--coffee-dark);
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    /* ABOUT */
+    .about {
+      background: var(--coffee-dark);
+      color: #fff;
+    }
+
+    .about .section-title { color: #fff; }
+    .about .section-subtitle { color: var(--coffee-light); }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .about-text h3 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+
+    .about-text p {
+      margin-bottom: 20px;
+      opacity: 0.9;
+    }
+
+    .features {
+      list-style: none;
+      margin-top: 25px;
+    }
+
+    .features li {
+      padding: 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .features li::before {
+      content: '☕';
+      font-size: 1.2rem;
+    }
+
+    /* CONTACT */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      text-align: center;
+    }
+
+    .contact-card {
+      background: #fff;
+      padding: 40px 25px;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(43,26,19,0.08);
+      transition: transform 0.3s;
+    }
+
+    .contact-card:hover { transform: translateY(-5px); }
+
+    .contact-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .contact-card h4 {
+      margin-bottom: 10px;
+      color: var(--coffee-dark);
+    }
+
+    .contact-card p { color: var(--coffee); }
+
+    /* FOOTER */
+    footer {
+      background: var(--coffee-dark);
+      color: var(--coffee-light);
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ADAPTIVE */
+    @media (max-width: 768px) {
+      nav ul { gap: 15px; }
+      nav a { font-size: 0.9rem; }
+      .logo { font-size: 1.3rem; }
+      .about-content { grid-template-columns: 1fr; gap: 30px; }
+      section { padding: 60px 20px; }
+      .section-title { font-size: 2rem; }
+    }
+
+    @media (max-width: 500px) {
+      nav ul { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <nav>
+      <div class="logo">☕ Coffee<span>House</span></div>
+      <ul>
+        <li><a href="#menu">Меню</a></li>
+        <li><a href="#about">О нас</a></li>
+        <li><a href="#contact">Контакты</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Свежий кофе <span>каждый день</span></h1>
+    <p>Наслаждайтесь ароматом лучших зерновых сортов, обжаренных с любовью. Ваш идеальный кофе начинается здесь.</p>
+    <a href="#menu" class="btn">Посмотреть меню</a>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu">
+    <div class="container">
+      <h2 class="section-title">Наше меню</h2>
+      <p class="section-subtitle">Выберите свой идеальный напиток</p>
+
+      <div class="menu-grid">
+        <div class="menu-item">
+          <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600" alt="Эспрессо">
+          <h3>Эспрессо</h3>
+          <p>Крепкий и насыщенный, классика итальянского кофе</p>
+          <div class="price">150 ₽</div>
+        </div>
+
+        <div class="menu-item">
+          <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600" alt="Капучино">
+          <h3>Капучино</h3>
+          <p>Нежная молочная пена и бархатный вкус эспрессо</p>
+          <div class="price">220 ₽</div>
+        </div>
+
+        <div class="menu-item">
+          <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600" alt="Латте">
+          <h3>Латте</h3>
+          <p>Мягкий, сливочный, с нотками ванили</p>
+          <div class="price">250 ₽</div>
+        </div>
+
+        <div class="menu-item">
+          <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=600" alt="Раф">
+          <h3>Раф</h3>
+          <p>Сладкий и нежный с добавлением сливок</p>
+          <div class="price">280 ₽</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <h2 class="section-title">О нас</h2>
+      <p class="section-subtitle">История нашей страсти к кофе</p>
+
+      <div class="about-content">
+        <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800" alt="О нашей кофейне">
+
+        <div class="about-text">
+          <h3>10 лет варим лучший кофе</h3>
+          <p>Мы — команда настоящих ценителей кофе. Каждый день мы отбираем лучшие зерна со всего мира и обжариваем их на месте, чтобы вы могли насладиться по-настоящему свежим напитком.</p>
+
+          <ul class="features">
+            <li>Свежая обжарка каждый день</li>
+            <li>Зерна из Эфиопии, Колумбии и Бразилии</li>
+            <li>Профессиональные баристы</li>
+            <li>Уютная атмосфера и Wi-Fi</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title">Свяжитесь с нами</h2>
+      <p class="section-subtitle">Мы всегда рады вас видеть</p>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon">📍</div>
+          <h4>Адрес</h4>
+          <p>ул. Кофейная, 15<br>Москва</p>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">🕐</div>
+          <h4>Часы работы</h4>
+          <p>Пн-Вс<br>08:00 — 22:00</p>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">📞</div>
+          <h4>Телефон</h4>
+          <p>+7 (999) 123-45-67</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 CoffeeHouse. Сделано с ❤️ и кофе. Все права защищены.</p>
+  </footer>
+
+</body>
+</html>
