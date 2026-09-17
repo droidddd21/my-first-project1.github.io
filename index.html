@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coffee House — Свежий кофе каждый день</title>
+    <title>Coffee House — Свежий кофе каждый день</title>
+
+  <!-- Favicon: кофейное зерно (SVG) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
   <style>
     * {
       margin: 0;
@@ -283,6 +286,308 @@
     .contact-card p { color: var(--coffee); }
 
     /* FOOTER */
+        /* КНОПКА НАВЕРХ */
+    .to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--coffee-dark);
+      color: var(--accent);
+      border: 2px solid var(--accent);
+      font-size: 1.4rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .to-top:hover {
+      background: var(--accent);
+      color: var(--coffee-dark);
+      transform: translateY(-5px);
+    }
+
+    @media (max-width: 600px) {
+      .to-top { bottom: 20px; right: 20px; width: 44px; height: 44px; }
+    }
+
+    /* FOOTER */
+    footer {
+                /* ОТЗЫВЫ */
+    .reviews {
+      background: var(--coffee-dark);
+      color: #fff;
+    }
+
+    .reviews .section-title { color: #fff; }
+    .reviews .section-subtitle { color: var(--coffee-light); }
+
+    .reviews-slider {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      min-height: 200px;
+    }
+
+    .review-card {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      text-align: center;
+      padding: 30px;
+      pointer-events: none;
+    }
+
+    .review-card.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .review-text {
+      font-size: 1.2rem;
+      font-style: italic;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .review-author {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .reviews-dots {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(200,162,122,0.4);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .dot.active {
+      background: var(--accent);
+      transform: scale(1.3);
+    }
+
+    /* ГАЛЕРЕЯ */
+    .gallery {
+      background: var(--cream);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+    }
+
+    .gallery-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+
+    .gallery-img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 15px 30px rgba(43,26,19,0.2);
+    }
+
+    /* ЛАЙТБОКС */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(43,26,19,0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      padding: 40px;
+      cursor: zoom-out;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90vh;
+      border-radius: 15px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 25px;
+      right: 35px;
+      color: #fff;
+      font-size: 2.5rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.3s;
+    }
+
+    .lightbox-close:hover { color: var(--accent); }
+
+    /* FAQ */
+    .faq {
+      background: #fff;
+    }
+
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #e0d5c8;
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 25px 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--coffee-dark);
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      font-family: inherit;
+      transition: color 0.3s;
+    }
+
+    .faq-question:hover { color: var(--accent); }
+
+    .faq-icon {
+      font-size: 1.5rem;
+      color: var(--accent);
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      color: var(--coffee);
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 200px;
+      padding-bottom: 25px;
+    }
+
+    /* ЗАЯВКА */
+    .order {
+      background: var(--cream);
+    }
+
+    .order-form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(43,26,19,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .order-form input,
+    .order-form textarea {
+      width: 100%;
+      padding: 15px 18px;
+      border: 1px solid #e0d5c8;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: inherit;
+      color: var(--coffee-dark);
+      background: var(--cream);
+      transition: border-color 0.3s, box-shadow 0.3s;
+      outline: none;
+    }
+
+    .order-form input:focus,
+    .order-form textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(212,163,115,0.2);
+    }
+
+    .order-form textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .order-form .btn {
+      animation: none;
+      align-self: center;
+      padding: 15px 50px;
+    }
+
+    .form-status {
+      text-align: center;
+      font-size: 0.95rem;
+      min-height: 22px;
+      margin-top: 5px;
+    }
+
+        .honeypot {
+      position: absolute;
+      left: -9999px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .form-status.success { color: #2e7d32; }
+    .form-status.error   { color: #c62828; }
+
+    @media (max-width: 600px) {
+      .order-form { padding: 25px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* FOOTER */
     footer {
       background: var(--coffee-dark);
       color: var(--coffee-light);
@@ -294,6 +599,18 @@
     footer a {
       color: var(--accent);
       text-decoration: none;
+    }
+
+        /* АНИМАЦИИ ПРИ СКРОЛЛЕ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* ADAPTIVE */
@@ -321,6 +638,9 @@
         <li><a href="#menu">Меню</a></li>
         <li><a href="#about">О нас</a></li>
         <li><a href="#contact">Контакты</a></li>
+        <li><a href="#reviews">Отзывы</a></li>
+        <li><a href="#gallery">Галерея</a></li>
+        <li><a href="#faq">FAQ</a></li>
       </ul>
     </nav>
   </header>
@@ -422,10 +742,291 @@
     </div>
   </section>
 
+    <!-- КНОПКА НАВЕРХ -->
+  <button class="to-top" id="toTop" aria-label="Наверх">↑</button>
+
+  <!-- FOOTER -->
+  <footer>
+          <!-- ОТЗЫВЫ -->
+  <section id="reviews" class="reviews">
+    <div class="container">
+      <h2 class="section-title">Отзывы гостей</h2>
+      <p class="section-subtitle">Что говорят о нас</p>
+
+      <div class="reviews-slider">
+        <div class="review-card active">
+          <p class="review-text">"Лучший капучино в городе! Атмосфера уютная, бариста — профессионалы. Хожу каждый день."</p>
+          <div class="review-author">— Анна К.</div>
+        </div>
+
+        <div class="review-card">
+          <p class="review-text">"Заказывал кофе в зёрнах — свежайшая обжарка, аромат невероятный. Теперь только здесь."</p>
+          <div class="review-author">— Дмитрий С.</div>
+        </div>
+
+        <div class="review-card">
+          <p class="review-text">"Идеальное место для работы: тихо, Wi-Fi, вкусный кофе. Провожу тут все встречи."</p>
+          <div class="review-author">— Елена М.</div>
+        </div>
+      </div>
+
+      <div class="reviews-dots">
+        <span class="dot active" data-index="0"></span>
+        <span class="dot" data-index="1"></span>
+        <span class="dot" data-index="2"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ГАЛЕРЕЯ -->
+  <section id="gallery" class="gallery">
+    <div class="container">
+      <h2 class="section-title">Наша атмосфера</h2>
+      <p class="section-subtitle">Загляните внутрь</p>
+
+      <div class="gallery-grid">
+        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600" alt="Интерьер" class="gallery-img">
+        <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600" alt="Бариста" class="gallery-img">
+        <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=600" alt="Кофе" class="gallery-img">
+        <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=600" alt="Уют" class="gallery-img">
+        <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600" alt="Зерна" class="gallery-img">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600" alt="Чашка" class="gallery-img">
+      </div>
+    </div>
+  </section>
+
+  <!-- ЛАЙТБОКС -->
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="lightboxClose">×</span>
+    <img src="" alt="" id="lightboxImg">
+  </div>
+
+  <!-- FAQ -->
+  <section id="faq" class="faq">
+    <div class="container">
+      <h2 class="section-title">Частые вопросы</h2>
+      <p class="section-subtitle">Отвечаем на главное</p>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">
+            Есть ли у вас Wi-Fi?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Да, бесплатный Wi-Fi для всех гостей. Пароль уточняйте у бариста.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Можно ли прийти с собакой?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Конечно! Мы dog-friendly. Для питомцев есть миска с водой.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Есть ли доставка?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Да, доставляем по центру города в течение 30 минут. Заказ от 500 ₽.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Можно забронировать столик?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Да, оставьте заявку через форму ниже или позвоните нам.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ЗАЯВКА -->
+  <section id="order" class="order">
+    <div class="container">
+      <h2 class="section-title">Оставить заявку</h2>
+      <p class="section-subtitle">Перезвоним в течение 15 минут</p>
+
+      <form class="order-form" id="orderForm">
+        <div class="form-row">
+          <input type="text" name="name" placeholder="Ваше имя" required>
+          <input type="tel" name="phone" placeholder="Телефон" required>
+        </div>
+                <textarea name="message" rows="3" placeholder="Что хотите заказать? (необязательно)"></textarea>
+
+        <!-- Honeypot: невидимое поле для ботов -->
+        <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
+        <button type="submit" class="btn">Отправить заявку</button>
+        <p class="form-status" id="formStatus"></p>
+      </form>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer>
     <p>© 2025 CoffeeHouse. Сделано с ❤️ и кофе. Все права защищены.</p>
   </footer>
 
+  <script>
+    const orderForm = document.getElementById('orderForm');
+    const formStatus = document.getElementById('formStatus');
+
+    orderForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      formStatus.textContent = 'Отправляем...';
+      formStatus.className = 'form-status';
+
+            // Проверка honeypot — если заполнено, это бот
+      if (orderForm.website.value.trim() !== '') {
+        formStatus.textContent = '✅ Заявка отправлена!';
+        formStatus.className = 'form-status success';
+        orderForm.reset();
+        return;
+      }
+
+      const data = {
+        name: orderForm.name.value.trim(),
+        phone: orderForm.phone.value.trim(),
+        message: orderForm.message.value.trim()
+      };
+
+            // НАСТРОЙКИ TELEGRAM (сюда свои данные)
+      const BOT_TOKEN = '8758993406:AAGPRZEFFBGHZMQ8ZB7sfqJ-u62dnj9ymTg';
+      const CHAT_ID = '8952815321';
+
+      // Формируем красивое сообщение
+      const message = `
+<b>☕ Новая заявка с сайта CoffeeHouse</b>
+
+<b>👤 Имя:</b> ${data.name}
+<b>📞 Телефон:</b> ${data.phone}
+<b>💬 Сообщение:</b> ${data.message || '—'}
+      `.trim();
+
+      // Отправляем в Telegram
+      try {
+        const response = await fetch(
+          `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: CHAT_ID,
+              text: message,
+              parse_mode: 'HTML'
+            })
+          }
+        );
+
+        const result = await response.json();
+
+        if (result.ok) {
+          formStatus.textContent = '✅ Заявка отправлена! Мы свяжемся с вами.';
+          formStatus.className = 'form-status success';
+          orderForm.reset();
+        } else {
+          throw new Error(result.description || 'Ошибка Telegram');
+        }
+      } catch (error) {
+        console.error('Ошибка отправки:', error);
+        formStatus.textContent = '❌ Не удалось отправить. Попробуйте ещё раз.';
+        formStatus.className = 'form-status error';
+      }
+        });
+
+    // Кнопка «Наверх»
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        toTop.classList.add('show');
+      } else {
+        toTop.classList.remove('show');
+      }
+    });
+        toTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Анимации появления секций
+    const revealElements = document.querySelectorAll(
+      '.section-title, .section-subtitle, .menu-item, .about-text, .about img, .contact-card, .order-form'
+    );
+    revealElements.forEach(el => el.classList.add('reveal'));
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+        revealElements.forEach(el => observer.observe(el));
+
+    // FAQ-аккордеон
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+      });
+    });
+
+    // Лайтбокс для галереи
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    document.querySelectorAll('.gallery-img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('open');
+      });
+    });
+
+    lightboxClose.addEventListener('click', () => lightbox.classList.remove('open'));
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) lightbox.classList.remove('open');
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') lightbox.classList.remove('open');
+    });
+
+    // Слайдер отзывов
+    const reviews = document.querySelectorAll('.review-card');
+    const dots = document.querySelectorAll('.dot');
+    let currentReview = 0;
+
+    function showReview(index) {
+      reviews.forEach(r => r.classList.remove('active'));
+      dots.forEach(d => d.classList.remove('active'));
+      reviews[index].classList.add('active');
+      dots[index].classList.add('active');
+      currentReview = index;
+    }
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        showReview(parseInt(dot.dataset.index));
+      });
+    });
+
+    setInterval(() => {
+      showReview((currentReview + 1) % reviews.length);
+    }, 5000);
+  </script>
 </body>
 </html>
