@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee House — Свежий кофе каждый день</title>
+  <title>Coffee House — Свежий кофе каждый день</title>
 
   <!-- Favicon: кофейное зерно (SVG) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+
   <style>
     * {
       margin: 0;
@@ -15,10 +16,9 @@
       font-family: 'Segoe UI', Tahoma, sans-serif;
     }
 
-    /* ⬇️ ГЛАВНОЕ: плавная прокрутка для всего сайта */
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 80px; /* отступ сверху под фиксированную шапку */
+      scroll-padding-top: 80px;
     }
 
     :root {
@@ -33,6 +33,11 @@
       background: var(--cream);
       color: var(--coffee-dark);
       line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img, iframe, video {
+      max-width: 100%;
     }
 
     /* HEADER */
@@ -54,6 +59,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 15px;
     }
 
     .logo {
@@ -61,6 +67,7 @@
       font-size: 1.6rem;
       font-weight: bold;
       letter-spacing: 1px;
+      white-space: nowrap;
     }
 
     .logo span { color: #fff; }
@@ -68,21 +75,57 @@
     nav ul {
       list-style: none;
       display: flex;
-      gap: 30px;
+      gap: 25px;
+      align-items: center;
     }
 
     nav a {
       color: #fff;
       text-decoration: none;
-      font-size: 1rem;
+      font-size: 0.95rem;
       transition: color 0.3s;
+      white-space: nowrap;
     }
 
     nav a:hover { color: var(--accent); }
 
+    /* БУРГЕР */
+    .burger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 22px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 110;
+    }
+
+    .burger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .burger.active span:nth-child(1) {
+      transform: translateY(10px) rotate(45deg);
+    }
+    .burger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .burger.active span:nth-child(3) {
+      transform: translateY(-10px) rotate(-45deg);
+    }
+
     /* HERO */
     .hero {
-      height: 100vh;
+      min-height: 100vh;
+      padding: 120px 20px 60px;
       background: linear-gradient(rgba(43,26,19,0.7), rgba(43,26,19,0.85)),
                   url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920') center/cover;
       display: flex;
@@ -91,11 +134,10 @@
       align-items: center;
       text-align: center;
       color: #fff;
-      padding: 0 20px;
     }
 
     .hero h1 {
-      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-size: clamp(2rem, 5vw, 4rem);
       margin-bottom: 20px;
       animation: fadeInUp 1s ease;
     }
@@ -123,6 +165,7 @@
       border: none;
       cursor: pointer;
       animation: fadeInUp 1s ease 0.6s backwards;
+      font-family: inherit;
     }
 
     .btn:hover {
@@ -253,6 +296,7 @@
     .features li::before {
       content: '☕';
       font-size: 1.2rem;
+      flex-shrink: 0;
     }
 
     /* CONTACT */
@@ -285,49 +329,7 @@
 
     .contact-card p { color: var(--coffee); }
 
-    /* FOOTER */
-        /* КНОПКА НАВЕРХ */
-    .to-top {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: var(--coffee-dark);
-      color: var(--accent);
-      border: 2px solid var(--accent);
-      font-size: 1.4rem;
-      cursor: pointer;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(20px);
-      transition: all 0.4s ease;
-      z-index: 99;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .to-top.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .to-top:hover {
-      background: var(--accent);
-      color: var(--coffee-dark);
-      transform: translateY(-5px);
-    }
-
-    @media (max-width: 600px) {
-      .to-top { bottom: 20px; right: 20px; width: 44px; height: 44px; }
-    }
-
-    /* FOOTER */
-    footer {
-                /* ОТЗЫВЫ */
+    /* ОТЗЫВЫ */
     .reviews {
       background: var(--coffee-dark);
       color: #fff;
@@ -340,7 +342,7 @@
       max-width: 700px;
       margin: 0 auto;
       position: relative;
-      min-height: 200px;
+      min-height: 220px;
     }
 
     .review-card {
@@ -395,9 +397,7 @@
     }
 
     /* ГАЛЕРЕЯ */
-    .gallery {
-      background: var(--cream);
-    }
+    .gallery { background: var(--cream); }
 
     .gallery-grid {
       display: grid;
@@ -455,9 +455,7 @@
     .lightbox-close:hover { color: var(--accent); }
 
     /* FAQ */
-    .faq {
-      background: #fff;
-    }
+    .faq { background: #fff; }
 
     .faq-list {
       max-width: 800px;
@@ -507,14 +505,12 @@
     }
 
     .faq-item.open .faq-answer {
-      max-height: 200px;
+      max-height: 300px;
       padding-bottom: 25px;
     }
 
     /* ЗАЯВКА */
-    .order {
-      background: var(--cream);
-    }
+    .order { background: var(--cream); }
 
     .order-form {
       max-width: 600px;
@@ -572,7 +568,7 @@
       margin-top: 5px;
     }
 
-        .honeypot {
+    .honeypot {
       position: absolute;
       left: -9999px;
       opacity: 0;
@@ -582,9 +578,39 @@
     .form-status.success { color: #2e7d32; }
     .form-status.error   { color: #c62828; }
 
-    @media (max-width: 600px) {
-      .order-form { padding: 25px; }
-      .form-row { grid-template-columns: 1fr; }
+    /* КНОПКА НАВЕРХ */
+    .to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--coffee-dark);
+      color: var(--accent);
+      border: 2px solid var(--accent);
+      font-size: 1.4rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .to-top:hover {
+      background: var(--accent);
+      color: var(--coffee-dark);
+      transform: translateY(-5px);
     }
 
     /* FOOTER */
@@ -601,7 +627,7 @@
       text-decoration: none;
     }
 
-        /* АНИМАЦИИ ПРИ СКРОЛЛЕ */
+    /* АНИМАЦИИ ПРИ СКРОЛЛЕ */
     .reveal {
       opacity: 0;
       transform: translateY(40px);
@@ -613,18 +639,136 @@
       transform: translateY(0);
     }
 
-    /* ADAPTIVE */
-    @media (max-width: 768px) {
+    /* ===== ПЛАНШЕТЫ (до 900px) ===== */
+    @media (max-width: 900px) {
       nav ul { gap: 15px; }
-      nav a { font-size: 0.9rem; }
+      nav a { font-size: 0.85rem; }
       .logo { font-size: 1.3rem; }
-      .about-content { grid-template-columns: 1fr; gap: 30px; }
-      section { padding: 60px 20px; }
+      .about-content { grid-template-columns: 1fr; gap: 40px; }
+      section { padding: 70px 20px; }
       .section-title { font-size: 2rem; }
+      .section-subtitle { margin-bottom: 45px; font-size: 1rem; }
     }
 
-    @media (max-width: 500px) {
-      nav ul { display: none; }
+    /* ===== МОБИЛЬНЫЕ (до 768px) ===== */
+    @media (max-width: 768px) {
+      /* Бургер показывается */
+      .burger { display: flex; }
+
+      /* Меню — выезжающая панель */
+      nav ul {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 75%;
+        max-width: 320px;
+        height: 100vh;
+        background: rgba(43, 26, 19, 0.98);
+        backdrop-filter: blur(15px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 35px;
+        transition: right 0.4s ease;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.4);
+        padding: 80px 20px;
+      }
+
+      nav ul.open { right: 0; }
+
+      nav ul li a {
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+      }
+
+      /* Затемнение фона за меню */
+      nav ul::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+        z-index: -1;
+      }
+
+      nav ul.open::before {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      /* Hero — на весь экран, с отступом сверху */
+      .hero {
+        min-height: 100vh;
+        padding: 100px 20px 60px;
+      }
+
+      /* Галерея — 2 колонки */
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .gallery-img { height: 160px; }
+
+      /* Отзывы — больше высоты под текст */
+      .reviews-slider { min-height: 260px; }
+      .review-text { font-size: 1rem; line-height: 1.7; }
+      .review-card { padding: 20px 10px; }
+
+      /* FAQ */
+      .faq-question {
+        font-size: 1rem;
+        padding: 20px 0;
+        gap: 12px;
+      }
+      .faq-item.open .faq-answer { max-height: 400px; }
+
+      /* Кнопка наверх */
+      .to-top { bottom: 20px; right: 20px; width: 44px; height: 44px; }
+    }
+
+    /* ===== УЗКИЕ ЭКРАНЫ (до 480px) ===== */
+    @media (max-width: 480px) {
+      /* Логотип компактнее */
+      .logo { font-size: 1.1rem; }
+
+      /* Секции — меньше воздуха */
+      section { padding: 50px 15px; }
+      .section-title { font-size: 1.7rem; }
+      .section-subtitle { margin-bottom: 35px; font-size: 0.95rem; }
+
+      /* Галерея — 1 колонка */
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-img { height: 220px; }
+
+      /* Лайтбокс — фото во всю ширину */
+      .lightbox { padding: 15px; }
+      .lightbox img { max-width: 100%; max-height: 80vh; }
+      .lightbox-close { top: 15px; right: 20px; font-size: 2rem; }
+
+      /* Отзывы */
+      .reviews-slider { min-height: 300px; }
+      .review-text { font-size: 0.95rem; }
+      .review-card { padding: 15px 5px; }
+
+      /* Форма — компактнее */
+      .order-form { padding: 20px; }
+      .order-form input,
+      .order-form textarea { padding: 13px 15px; font-size: 0.95rem; }
+      .order-form .btn { padding: 14px 35px; font-size: 0.9rem; }
+      .form-row { grid-template-columns: 1fr; }
+
+      /* Контакты */
+      .contact-card { padding: 30px 20px; }
+      .contact-icon { font-size: 2rem; }
+
+      /* Меню-бургер */
+      nav ul { width: 85%; }
+      nav ul li a { font-size: 1.1rem; }
     }
   </style>
 </head>
@@ -634,14 +778,22 @@
   <header>
     <nav>
       <div class="logo">☕ Coffee<span>House</span></div>
-      <ul>
+
+      <ul id="navMenu">
         <li><a href="#menu">Меню</a></li>
         <li><a href="#about">О нас</a></li>
         <li><a href="#contact">Контакты</a></li>
         <li><a href="#reviews">Отзывы</a></li>
         <li><a href="#gallery">Галерея</a></li>
         <li><a href="#faq">FAQ</a></li>
+        <li><a href="#order">Заявка</a></li>
       </ul>
+
+      <button class="burger" id="burger" aria-label="Меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </nav>
   </header>
 
@@ -742,12 +894,7 @@
     </div>
   </section>
 
-    <!-- КНОПКА НАВЕРХ -->
-  <button class="to-top" id="toTop" aria-label="Наверх">↑</button>
-
-  <!-- FOOTER -->
-  <footer>
-          <!-- ОТЗЫВЫ -->
+  <!-- ОТЗЫВЫ -->
   <section id="reviews" class="reviews">
     <div class="container">
       <h2 class="section-title">Отзывы гостей</h2>
@@ -862,7 +1009,7 @@
           <input type="text" name="name" placeholder="Ваше имя" required>
           <input type="tel" name="phone" placeholder="Телефон" required>
         </div>
-                <textarea name="message" rows="3" placeholder="Что хотите заказать? (необязательно)"></textarea>
+        <textarea name="message" rows="3" placeholder="Что хотите заказать? (необязательно)"></textarea>
 
         <!-- Honeypot: невидимое поле для ботов -->
         <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
@@ -872,12 +1019,44 @@
     </div>
   </section>
 
+  <!-- КНОПКА НАВЕРХ -->
+  <button class="to-top" id="toTop" aria-label="Наверх">↑</button>
+
   <!-- FOOTER -->
   <footer>
     <p>© 2025 CoffeeHouse. Сделано с ❤️ и кофе. Все права защищены.</p>
   </footer>
 
   <script>
+    /* ===== БУРГЕР-МЕНЮ ===== */
+    const burger = document.getElementById('burger');
+    const navMenu = document.getElementById('navMenu');
+
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('active');
+      navMenu.classList.toggle('open');
+    });
+
+    // Закрытие меню при клике на ссылку + плавный скролл
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        burger.classList.remove('active');
+        navMenu.classList.remove('open');
+
+        const targetId = link.getAttribute('href');
+        if (targetId.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(targetId);
+          if (target) {
+            const offset = 70;
+            const top = target.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top, behavior: 'smooth' });
+          }
+        }
+      });
+    });
+
+    /* ===== ФОРМА ЗАЯВКИ ===== */
     const orderForm = document.getElementById('orderForm');
     const formStatus = document.getElementById('formStatus');
 
@@ -886,7 +1065,7 @@
       formStatus.textContent = 'Отправляем...';
       formStatus.className = 'form-status';
 
-            // Проверка honeypot — если заполнено, это бот
+      // Honeypot
       if (orderForm.website.value.trim() !== '') {
         formStatus.textContent = '✅ Заявка отправлена!';
         formStatus.className = 'form-status success';
@@ -900,11 +1079,10 @@
         message: orderForm.message.value.trim()
       };
 
-            // НАСТРОЙКИ TELEGRAM (сюда свои данные)
+      // ⚠️ НАСТРОЙКИ TELEGRAM
       const BOT_TOKEN = '8758993406:AAGPRZEFFBGHZMQ8ZB7sfqJ-u62dnj9ymTg';
       const CHAT_ID = '8952815321';
 
-      // Формируем красивое сообщение
       const message = `
 <b>☕ Новая заявка с сайта CoffeeHouse</b>
 
@@ -913,7 +1091,6 @@
 <b>💬 Сообщение:</b> ${data.message || '—'}
       `.trim();
 
-      // Отправляем в Telegram
       try {
         const response = await fetch(
           `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
@@ -942,9 +1119,9 @@
         formStatus.textContent = '❌ Не удалось отправить. Попробуйте ещё раз.';
         formStatus.className = 'form-status error';
       }
-        });
+    });
 
-    // Кнопка «Наверх»
+    /* ===== КНОПКА НАВЕРХ ===== */
     const toTop = document.getElementById('toTop');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 400) {
@@ -953,11 +1130,11 @@
         toTop.classList.remove('show');
       }
     });
-        toTop.addEventListener('click', () => {
+    toTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Анимации появления секций
+    /* ===== АНИМАЦИИ ПРИ СКРОЛЛЕ ===== */
     const revealElements = document.querySelectorAll(
       '.section-title, .section-subtitle, .menu-item, .about-text, .about img, .contact-card, .order-form'
     );
@@ -972,9 +1149,9 @@
       });
     }, { threshold: 0.15 });
 
-        revealElements.forEach(el => observer.observe(el));
+    revealElements.forEach(el => observer.observe(el));
 
-    // FAQ-аккордеон
+    /* ===== FAQ-АККОРДЕОН ===== */
     document.querySelectorAll('.faq-question').forEach(btn => {
       btn.addEventListener('click', () => {
         const item = btn.parentElement;
@@ -984,7 +1161,7 @@
       });
     });
 
-    // Лайтбокс для галереи
+    /* ===== ЛАЙТБОКС ===== */
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightboxImg');
     const lightboxClose = document.getElementById('lightboxClose');
@@ -1005,7 +1182,7 @@
       if (e.key === 'Escape') lightbox.classList.remove('open');
     });
 
-    // Слайдер отзывов
+    /* ===== СЛАЙДЕР ОТЗЫВОВ ===== */
     const reviews = document.querySelectorAll('.review-card');
     const dots = document.querySelectorAll('.dot');
     let currentReview = 0;
