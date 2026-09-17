@@ -62,12 +62,19 @@
       gap: 15px;
     }
 
-    .logo {
+        .logo {
       color: var(--accent);
       font-size: 1.6rem;
       font-weight: bold;
       letter-spacing: 1px;
       white-space: nowrap;
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+    .logo:hover {
+      opacity: 0.8;
     }
 
     .logo span { color: #fff; }
@@ -772,12 +779,12 @@
     }
   </style>
 </head>
-<body>
+<body id="top">
 
   <!-- HEADER -->
   <header>
     <nav>
-      <div class="logo">☕ Coffee<span>House</span></div>
+            <a href="#top" class="logo">☕ Coffee<span>House</span></a>
 
       <ul id="navMenu">
         <li><a href="#menu">Меню</a></li>
